@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>API</title>
+
+	<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+	<script>
+		function getCurrentNews() {
+
+			request = new XMLHttpRequest();
+			request.open("GET", "https://official-joke-api.appspot.com/random_joke", true);
+			request.onreadystatechange = function() {
+
+				if (request.readyState == 4 && request.status == 200) {
+					all = request.responseText;
+					joke = JSON.parse(all);
+
+					document.getElementById("setup").innerHTML += joke["setup"];
+					document.getElementById("punchline").innerHTML += joke["punchline"];
+				}
+			}
+			request.send();
+			$("#punchline").hide(0);
+			$("#punchline").show(7000);
+		}
+	</script>
+	<style>
+
+		html {
+		    background-color: #f8f8ff;
+		}
+
+		body{
+		    font-size: 20px;
+		    font-family: "Georgia";
+		}
+
+		#joke {
+			display: inline-block;
+			border: 2px solid #f00;
+			padding: 10px;
+		}
+
+	</style>
+</head>
+
+<body onload="getCurrentNews()">
+	<h2>The API For Good Laugh</h2>
+	<div>
+		<p>This API generates a random joke! A very simple and very amusing API. It generates both the setup and the punchline for  a joke.</p>
+
+		<p>The source of this API is: https://dev.to/alanjc/5-simple-to-use-apis-for-beginners-2e0n</p>
+		<p>However, the actually API can be found on github at: https://github.com/15Dkatz/official_joke_api</p>
+
+		<p>I used the setup and punchline options from the API below.</p>
+
+		<p>This API can be used by dads around the world when their joke stash is running low. Another use for this API is to get a quick laugh to cheer you up!</p> 
+	</div><br />
+	
+	<h3>The joke</h3>
+	<div id="joke">
+		<div id="setup">Joke: </div>
+		<div>Punchline: <span id="punchline"></span></div>
+	</div>
+
+</body>
+</html>
